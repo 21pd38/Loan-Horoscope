@@ -168,8 +168,8 @@ def visualizations():
 
 def calculate_pate():
     # Perform the PATE analysis here and return the results
-    epsilon = 0.1  # Example privacy budget
-    delta = 0.05  # Example PATE discrepancy
+    epsilon = 0.1 
+    delta = 0.05  
 
     return (epsilon, delta)
 
