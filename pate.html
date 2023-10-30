@@ -1,24 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PATE Analysis</title>
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-image: url("/static/neon2.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .neon-border {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7); /* Dark background for headings */
+            font-size: 24px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+        }
+
+        .neon-font {
+            font-family: 'cursive';
+            font-size: 16px;
+        }
+
+        .content-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #00f;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>PATE Analysis Results</h1>
+    <h1 class="neon-border neon-font">PATE Analysis Results</h1>
 
-    <h2>Privacy Analysis:</h2>
-    <p>
-        Privacy Budget (ε): {{ pate_result[0] }}
-    </p>
+    <div class="content-box">
+        <h2 class="neon-font">Privacy Analysis:</h2>
+        <p>
+            Privacy Budget (ε): {{ pate_result[0] }}
+        </p>
+    </div>
 
-    <h2>Utility Analysis:</h2>
-    <p>
-        Max PATE Discrepancy (Δ): {{ pate_result[1] }}
-    </p>
-    
-    <h2>Overall Analysis:</h2>
+    <div class="content-box">
+        <h2 class="neon-font">Utility Analysis:</h2>
+        <p>
+            Max PATE Discrepancy (Δ): {{ pate_result[1] }}
+        </p>
+    </div>
+
+    <h2 class="neon-font">Overall Analysis:</h2>
     <p>
         Privacy Guarantee: {% if pate_result[0] < 1.0 %} Satisfactory {% else %} Not Satisfactory {% endif %}
     </p>
@@ -28,4 +66,5 @@
 
     <a href="/">Back to Home</a>
 </body>
+</html>
 </html>
