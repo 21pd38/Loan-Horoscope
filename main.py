@@ -166,5 +166,17 @@ def visualizations():
 
     return render_template('visualizations.html')
 
+def calculate_pate():
+    # Perform the PATE analysis here and return the results
+    epsilon = 0.1  # Example privacy budget
+    delta = 0.05  # Example PATE discrepancy
+
+    return (epsilon, delta)
+
+@app.route('/pate')
+def pate_analysis():
+    pate_result = calculate_pate()
+    return render_template('pate.html', pate_result=pate_result)
+    
 if __name__ == '__main__':
     app.run(debug=True)
