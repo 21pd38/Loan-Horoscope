@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-image: url("/static/neon2.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .neon-border {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7); /* Dark background for headings */
+            font-size: 24px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+        }
+
+        .neon-font {
+            font-family: 'cursive';
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+            border: 2px solid #00f;
+        }
+
+        input[type="submit"] {
+            background-color: #f00;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #f00;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border: 2px solid #f00;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        a:hover {
+            background-color: #f00;
+            color: #fff;
+        }
+
+        .team-members {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 20px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+            background: rgba(0, 0, 0, 0.7); /* Dark background for Team members */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="neon-border neon-font">ML HACKATHON</h1>
+    <p class="neon-border neon-font">LOAN APPROVAL PREDICTION</p>
+
+    <!-- Team members and buttons -->
+    <p class="team-members neon-font">
+        Team members:<br>
+        1.) Vamsi Krishna. U (21pd38)<br>
+        2.) Sai Vignesh . J (21pd29)
+    </p>
+
+    <!-- View Visualizations button -->
+    <a href="/visualizations" class="neon-border neon-font">View Visualizations</a>
+
+    <!-- View PATE button -->
+    <a href="/pate" class="neon-border neon-font">View PATE</a>
+
+    <form method="POST" action="/predict">
+        <label for="no_of_dependents">Number of Dependents:</label>
+        <input type="number" name="no_of_dependents" required>
+
+        <label for="education">Education (0 for Graduate, 1 for Not Graduate):</label>
+        <input type="number" name="education" required>
+
+        <label for="self_employed">Self Employed (0 for No, 1 for Yes):</label>
+        <input type="number" name="self_employed" required>
+
+        <label for="income_annum">Annual Income:</label>
+        <input type="number" name="income_annum" required>
+
+        <label for="loan_amount">Loan Amount:</label>
+        <input type="number" name="loan_amount" required>
+
+        <label for="loan_term">Loan Term (months):</label>
+        <input type="number" name="loan_term" required>
+
+        <label for="cibil_score">CIBIL Score:</label>
+        <input type="number" name="cibil_score" required>
+
+        <label for="residential_assets_value">Residential Assets Value:</label>
+        <input type="number" name="residential_assets_value" required>
+
+        <label for="commercial_assets_value">Commercial Assets Value:</label>
+        <input type="number" name="commercial_assets_value" required>
+
+        <label for="luxury_assets_value">Luxury Assets Value:</label>
+        <input type="number" name="luxury_assets_value" required>
+
+        <label for="bank_asset_value">Bank Asset Value:</label>
+        <input type="number" name="bank_asset_value" required>
+
+        <input type="submit" value="Predict Loan Approval" onmouseover="changeButtonColor()" onmouseout="resetButtonColor()">
+    </form>
+
+    <script>
+        function changeButtonColor() {
+            document.querySelector('input[type="submit"]').style.backgroundColor = '#f00';
+        }
+
+        function resetButtonColor() {
+            document.querySelector('input[type="submit"]').style.backgroundColor = '#f00';
+        }
+    </script>
+</body>
+</html>

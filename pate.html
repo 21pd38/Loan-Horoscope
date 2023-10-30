@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PATE Analysis</title>
+</head>
+<body>
+    <h1>PATE Analysis Results</h1>
+
+    <h2>Privacy Analysis:</h2>
+    <p>
+        Privacy Budget (ε): {{ pate_result[0] }}
+    </p>
+
+    <h2>Utility Analysis:</h2>
+    <p>
+        Max PATE Discrepancy (Δ): {{ pate_result[1] }}
+    </p>
+    
+    <h2>Overall Analysis:</h2>
+    <p>
+        Privacy Guarantee: {% if pate_result[0] < 1.0 %} Satisfactory {% else %} Not Satisfactory {% endif %}
+    </p>
+    <p>
+        Utility Guarantee: {% if pate_result[1] < 1.0 %} Satisfactory {% else %} Not Satisfactory {% endif %}
+    </p>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
