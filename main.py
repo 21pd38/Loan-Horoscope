@@ -11,7 +11,6 @@ import base64
 from sklearn.metrics import confusion_matrix
 import numpy as np
 from sklearn.svm import SVC
-import joblib
 
 app = Flask(__name__)
 
@@ -90,12 +89,17 @@ def visualizations():
     fig = plt.figure(figsize=(14, 14))
     image_paths = []
 
-    # Visualization 1: Bar Chart - Loan Approval Rate by Education
-    ax1 = plt.subplot(5, 2, 1)
-    bar_data1 = df.groupby('education')['loan_status'].mean().reset_index()
-    sns.barplot(data=bar_data1, x='education', y='loan_status', palette='viridis', ax=ax1)
-    ax1.set_title('Loan Approval Rate by Education')
-    #image_paths.append('static/bar_chart.png')
+    # Visualization 1: Bar Chart - No. of dependants
+    dependents_counts = df['no_of_dependents'].value_counts().sort_index()
+
+    # Create a bar chart for the number of dependents
+    plt.figure(figsize=(8, 6))
+    plt.bar(dependents_counts.index, dependents_counts, color='skyblue')
+    plt.xlabel('Number of Dependents')
+    plt.ylabel('Count')
+    plt.title('Distribution of Number of Dependents')
+    plt.xticks(dependents_counts.index)
+    #plt.show()
 
     # Visualization 2: Pie Chart - Education Distribution
     ax2 = plt.subplot(5, 2, 2)
@@ -111,12 +115,6 @@ def visualizations():
     ax3.set_title('Income vs. Loan Amount')
     #image_paths.append('static/scatter_plot.png')
 
-    # Visualization 4: Box Plot - Loan Amount by Education
-    ax4 = plt.subplot(5, 2, 4)
-    sns.boxplot(data=df, x='education', y='loan_amount', palette='Set2', ax=ax4)
-    ax4.set_title('Loan Amount by Education')
-    #image_paths.append('static/box_plot.png')
-
     # Visualization 5: Confusion Matrix
     ax5 = plt.subplot(5, 2, 5)
     cm = confusion_matrix(y_test, y_pred)
@@ -124,11 +122,20 @@ def visualizations():
     ax5.set_title('Confusion Matrix')
     #image_paths.append('static/confusion_matrix.png')
 
-    # Visualization 6: Bar Chart - Loan Approval Rate by Employment Status
-    ax6 = plt.subplot(5, 2, 6)
-    bar_data2 = df.groupby('self_employed')['loan_status'].mean().reset_index()
-    sns.barplot(data=bar_data2, x='self_employed', y='loan_status', palette='mako', ax=ax6)
-    ax6.set_title('Loan Approval Rate by Employment Status')
+    # Visualization 6: Bar Chart - No. of employed vs unemployed customers
+    # Count the number of employed (0) and unemployed (1) individuals
+    employment_counts = df['self_employed'].value_counts().sort_index()
+
+    # Create a bar chart for employed and unemployed people
+    plt.figure(figsize=(6, 4))
+    bars = plt.bar(['Employed', 'Unemployed'], employment_counts, color=['skyblue', 'lightcoral'])
+    plt.xlabel('Employment Status')
+    plt.ylabel('Count')
+    plt.title('Distribution of Employment Status')
+
+    # Annotate the bars with count values
+    for bar, count in zip(bars, employment_counts):
+        plt.text(bar.get_x() + bar.get_width() / 2 - 0.1, bar.get_height(), str(count), va='bottom')
     #image_paths.append('static/bar_chart2.png')
 
     # Visualization 7: Scatter Plot - CIBIL Score vs. Bank Asset Value
@@ -137,11 +144,18 @@ def visualizations():
     ax7.set_title('CIBIL Score vs. Bank Asset Value')
     #image_paths.append('static/scatter_plot3.png')
 
-    # Visualization 8: Box Plot - Residential Assets by Loan Status
-    ax8 = plt.subplot(5, 2, 8)
-    sns.boxplot(data=df, x='loan_status', y='residential_assets_value', palette='Set1', ax=ax8)
-    ax8.set_title('Residential Assets by Loan Status')
-    #image_paths.append('static/box_plot2.png')
+    # Visualization 8: Mean Cibil score for accepted and rejected customers
+    # Calculate the mean CIBIL score for accepted and rejected loans
+    mean_cibil_score_accepted = df[df['loan_status'] == 0]['cibil_score'].mean()
+    mean_cibil_score_rejected = df[df['loan_status'] == 1]['cibil_score'].mean()
+
+    # Create a bar chart to compare the mean CIBIL score for accepted and rejected loans
+    plt.figure(figsize=(6, 6))
+    plt.bar(['Accepted', 'Rejected'], [mean_cibil_score_accepted, mean_cibil_score_rejected], color=['green', 'red'])
+    plt.xlabel('Loan Status')
+    plt.ylabel('Mean CIBIL Score')
+    plt.title('Mean CIBIL Score for Accepted vs. Rejected Loans')
+    #image_paths.append('static/bar_chart4.png')
 
     # Visualization 9: Pie Chart - Employment Status Distribution
     ax9 = plt.subplot(5, 2, 9)
@@ -166,17 +180,58 @@ def visualizations():
 
     return render_template('visualizations.html')
 
-def calculate_pate():
-    # Perform the PATE analysis here and return the results
-    epsilon = 0.1 
-    delta = 0.05  
+def split_dataframe(df, n_splits):
+    splits = np.array_split(df, n_splits)
+    return splits
 
-    return (epsilon, delta)
+def make_dataframe(split):
+    df = pd.DataFrame(split, columns=data.columns)
+    y = df['loan_status']
+    X = df.drop('loan_status', axis=1)
+    return X, y
+
+def split_train_test(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    return X_train, X_test, y_train, y_test
+
+def add_noise(X_test):
+    laplace_scale = 0.1
+    laplace_noise = np.random.laplace(loc=0, scale=laplace_scale, size=X_test.shape)
+    noisy_data = X_test + laplace_noise
+    return noisy_data
+
+def model(X_train, y_train):
+    svm_classifier = SVC()  # Create a Support Vector Machine classifier
+    svm_classifier.fit(X_train, y_train)
+    return svm_classifier
+
+def predict(model, X_test):
+    y_pred = model.predict(X_test)
+    return y_pred
+
+def cal_accuracy(y_test, y_pred):
+    accuracy = accuracy_score(y_test, y_pred)
+    return accuracy
+
+data = pd.read_csv('loan_approval.csv')  # Load your dataset here
 
 @app.route('/pate')
 def pate_analysis():
-    pate_result = calculate_pate()
-    return render_template('pate.html', pate_result=pate_result)
-    
+    num_splits = 5
+    result_splits = split_dataframe(data, num_splits)
+    accuracy = []
+    teacher_model = []
+
+    for i in result_splits:
+        X, y = make_dataframe(i)
+        X_train, X_test, y_train, y_test = split_train_test(X, y)
+        teacher = model(X_train, y_train)
+        teacher_model.append(teacher)
+        y_pred = predict(teacher, X_test)
+        acc = cal_accuracy(y_test, y_pred)
+        accuracy.append(acc)
+
+    return render_template('pate.html', accuracy=accuracy)
+
 if __name__ == '__main__':
     app.run(debug=True)
