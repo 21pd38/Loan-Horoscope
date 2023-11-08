@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PATE Analysis</title>
+    <title>PATE Analysis Results</title>
     <style>
         body {
             font-family: 'Arial Black', Gadget, sans-serif;
@@ -19,7 +19,7 @@
             border-radius: 10px;
             padding: 10px;
             display: inline-block;
-            background: rgba(0, 0, 0, 0.7); /* Dark background for headings */
+            background: rgba(0, 0, 0, 0.7);
             font-size: 24px;
             text-shadow: 3px 3px 6px #000;
             margin: 10px;
@@ -27,44 +27,41 @@
 
         .neon-font {
             font-family: 'cursive';
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border: 2px solid #f00;
+            border-radius: 10px;
+            margin-top: 20px;
             font-size: 16px;
         }
 
-        .content-box {
-            background: rgba(0, 0, 0, 0.7);
-            border: 3px solid #00f;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px;
+        a:hover {
+            background-color: #f00;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <h1 class="neon-border neon-font">PATE Analysis Results</h1>
-
-    <div class="content-box">
-        <h2 class="neon-font">Privacy Analysis:</h2>
-        <p>
-            Privacy Budget (ε): {{ pate_result[0] }}
-        </p>
-    </div>
-
-    <div class="content-box">
-        <h2 class="neon-font">Utility Analysis:</h2>
-        <p>
-            Max PATE Discrepancy (Δ): {{ pate_result[1] }}
-        </p>
-    </div>
-
-    <h2 class="neon-font">Overall Analysis:</h2>
-    <p>
-        Privacy Guarantee: {% if pate_result[0] < 1.0 %} Satisfactory {% else %} Not Satisfactory {% endif %}
-    </p>
-    <p>
-        Utility Guarantee: {% if pate_result[1] < 1.0 %} Satisfactory {% else %} Not Satisfactory {% endif %}
-    </p>
-
+    <ul>
+        {% for acc in accuracy %}
+            <li>Teacher Model Accuracy: {{acc}}</li>
+        {% endfor %}
+    </ul>
     <a href="/">Back to Home</a>
 </body>
-</html>
 </html>
