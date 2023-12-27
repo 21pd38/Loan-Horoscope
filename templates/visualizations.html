@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualizations</title>
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-image: url("/static/neon2.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .neon-border {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7); /* Dark background for headings */
+            font-size: 24px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+        }
+
+        .neon-font {
+            font-family: 'cursive';
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="neon-border neon-font">Visualizations</h1>
+
+    <!-- Visualization 1: Bar Chart - No. of dependants -->
+    <h2 class="neon-font">No. of dependants</h2>
+    <img src="{{ url_for('static', filename='bar_chart.png') }}" alt="Bar Chart - No. of dependants">
+
+    <!-- Visualization 2: Pie Chart - Education Distribution -->
+    <h2 class="neon-font">Education Distribution</h2>
+    <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart - Education Distribution">
+
+    <!-- Visualization 3: Scatter Plot - Income vs. Loan Amount -->
+    <h2 class="neon-font">Income vs. Loan Amount</h2>
+    <img src="{{ url_for('static', filename='scatter_plot.png') }}" alt="Scatter Plot - Income vs. Loan Amount">
+
+    <!-- Visualization 5: Confusion Matrix -->
+    <h2 class="neon-font">Confusion Matrix</h2>
+    <img src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Confusion Matrix">
+
+    <!-- Visualization 6: Bar Chart - No. of employed vs unemployed customers -->
+    <h2 class="neon-font">Loan Approval Rate by Employment Status</h2>
+    <img src="{{ url_for('static', filename='bar_chart2.png') }}" alt="Bar Chart - Loan Approval Rate by Employment Status">
+
+    <!-- Visualization 7: Scatter Plot - CIBIL Score vs. Bank Asset Value -->
+    <h2 class="neon-font">CIBIL Score vs. Bank Asset Value</h2>
+    <img src="{{ url_for('static', filename='scatter_plot3.png') }}" alt="Scatter Plot - CIBIL Score vs. Bank Asset Value">
+
+    <!-- Visualization 8: Mean cibil score for accepted and rejected customers -->
+    <h2 class="neon-font">Mean cibil score for accepted and rejected customers</h2>
+    <img src="{{ url_for('static', filename='bar_chart4.png') }}" alt="Mean cibil score for accepted and rejected customers">
+
+    <!-- Visualization 9: Pie Chart - Employment Status Distribution -->
+    <h2 class="neon-font">Employment Status Distribution</h2>
+    <img src="{{ url_for('static', filename='pie_chart2.png') }}" alt="Pie Chart - Employment Status Distribution">
+
+    <!-- Visualization 10: Scatter Plot - Commercial Assets vs. Residential Assets -->
+    <h2 class="neon-font">Commercial vs. Residential Assets</h2>
+    <img src="{{ url_for('static', filename='scatter_plot4.png') }}" alt="Scatter Plot - Commercial vs. Residential Assets">
+</body>
+</html>

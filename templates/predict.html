@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Approval Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-image: url("/static/neon2.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7); /* Dark background for headings */
+            font-size: 24px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+        }
+
+        h2 {
+            font-family: 'cursive';
+        }
+
+        ul {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            list-style-type: none;
+        }
+
+        li {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border: 2px solid #f00;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        a:hover {
+            background-color: #f00;
+            color: #fff;
+        }
+
+        /* Styles for Approved and Rejected predictions */
+        .approved {
+            color: green;
+        }
+
+        .rejected {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Loan Approval Prediction Result</h1>
+
+    <h2>Predictions:</h2>
+    <ul>
+        <li>Linear Kernel: <span class="{{ 'approved' if predictions['linear'] == 'Approved' else 'rejected' }}">{{ predictions['linear'] }}</span></li>
+        <li>Poly Kernel: <span class="{{ 'approved' if predictions['poly'] == 'Approved' else 'rejected' }}">{{ predictions['poly'] }}</span></li>
+        <li>RBF Kernel: <span class="{{ 'approved' if predictions['rbf'] == 'Approved' else 'rejected' }}">{{ predictions['rbf'] }}</span></li>
+    </ul>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
+
+
+

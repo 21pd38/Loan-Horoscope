@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PATE Analysis Results</title>
+    <style>
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-image: url("/static/neon2.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .neon-border {
+            color: #00f;
+            border: 3px solid #0f0;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7);
+            font-size: 24px;
+            text-shadow: 3px 3px 6px #000;
+            margin: 10px;
+        }
+
+        .neon-font {
+            font-family: 'cursive';
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border: 2px solid #f00;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        a:hover {
+            background-color: #f00;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="neon-border neon-font">PATE Analysis Results</h1>
+    <ul>
+        {% for acc in accuracy %}
+            <li>Teacher Model Accuracy: {{acc}}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
